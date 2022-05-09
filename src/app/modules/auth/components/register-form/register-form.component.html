@@ -1,0 +1,46 @@
+<div class="register-container">
+    <h1>Sign Up</h1>
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <mat-grid-list cols="2" rowHeight="77px" (window:resize)="onResize($event)">
+            <mat-grid-tile [colspan]="col_span">
+                <mat-form-field appearance="outline">
+                    <mat-label>First name</mat-label>
+                    <input matInput formControlName="first_name" required />
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile [colspan]="col_span">
+                <mat-form-field appearance="outline">
+                    <mat-label>Last name</mat-label>
+                    <input matInput formControlName="last_name" required />
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile [colspan]="2">
+                <mat-form-field appearance="outline">
+                    <mat-label>Enter your email</mat-label>
+                    <input matInput placeholder="pat@example.com" formControlName="email" required />
+                    <mat-error *ngIf="registerForm.controls['email']">{{ getErrorMessage() }}
+                    </mat-error>
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile [colspan]="2">
+                <mat-form-field appearance="fill">
+                    <mat-label>Enter your password</mat-label>
+                    <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" />
+                    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+            <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+          </button>
+                </mat-form-field>
+            </mat-grid-tile>
+        </mat-grid-list>
+        <div *ngIf="err_msg != null">{{ err_msg }}</div>
+        <mat-spinner *ngIf="submitted" [diameter]="50"></mat-spinner>
+        <button class="form-button" *ngIf="!submitted" mat-raised-button color="primary" type="submit">
+      Sign Up
+    </button>
+        <div class="or"><span>OR</span></div>
+        <span>Already have an account?</span>
+        <button class="form-button" mat-raised-button color="warn" type="button" (click)="goToSignIn()">
+      Sign In
+    </button>
+    </form>
+</div>
